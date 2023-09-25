@@ -1,0 +1,21 @@
+<div class="container">
+    <h3>Chat Demo</h3>
+  
+    <div class="message-list">    
+      <div *ngFor="let message of messages">
+        <div for="update-user" >{{ message }}</div>
+      </div>
+    </div>
+    
+    <br>
+
+    <form [formGroup]="chatForm" (ngSubmit)="onSubmit()">
+
+    <div class="input-group">
+        <input formControlName="message" id="message" type="text" class="form-control" placeholder="Message">
+        <button class="btn btn-primary" [disabled]="chatForm.invalid" >Send</button>
+    </div>
+
+    </form>
+
+  </div>

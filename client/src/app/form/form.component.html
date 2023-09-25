@@ -1,0 +1,54 @@
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="container">
+
+      <h3>Form Demo</h3>
+      
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" aria-describedby="name" formControlName = "name" placeholder="Username">
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="Email" formControlName = "email">
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Password" formControlName = "password">
+      </div>
+
+      <div class="mb-3">
+        <label for="confirmPassword" class="form-label">Matching Password</label>
+        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" formControlName = "confirmPassword">
+      </div>
+
+      <div *ngIf="form.hasError('matchingPasswordsValidator') && (form.get('password')!.dirty && form.get('confirmPassword')!.dirty)" class="mb-3 alert alert-warning">
+        Password do not match!
+      </div>
+
+      <div class="mb-3">
+
+        <app-select 
+            label = "City"
+            [options] = "options" 
+            [control]="getCityFormControl()" 
+            inputId="city"
+             >
+             <i class="fa fa-home label-icon" aria-hidden="true"></i>
+             <ng-template #leftIcon>&#xf111;</ng-template>
+        </app-select>
+        <br/>
+
+        <div *ngIf="form.get('city')!.hasError('required') && form.get('city')!.dirty" class="mb-3 alert alert-warning">
+            City must be selected
+        </div>
+        
+      </div>
+
+
+
+      <button class="mb-3 btn btn-primary" type="submit" [disabled]="form.invalid">Send</button>
+    </div>
+  </form>

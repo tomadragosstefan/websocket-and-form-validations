@@ -1,0 +1,28 @@
+<label [for]="inputId" class="form-label">{{label}}</label>
+
+<select [hidden]="true" name="" [id]="inputId" class="form-select" [formControl] = "control">
+    <ng-container *ngFor="let option of options">
+        <option  [value]="option.value"><ng-container *ngIf="leftIconTemplateRef && option.value!= ''" [ngTemplateOutlet]="leftIconTemplateRef"></ng-container> {{ option.text }}</option>
+    </ng-container>
+</select>
+
+
+<div class="input-group mb-3 custom-select">
+    <button type="button" class="btn btn-outline-secondary"><ng-content select=".label-icon"></ng-content> {{label}}</button>
+    <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" [ngClass]="{'show':isOpen}"  (click)="onToggleDrDwn()" data-bs-toggle="dropdown" aria-expanded="false">
+      <span class="visually-hidden">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu" [ngClass]="{'show':isOpen}">
+        <li (click)="onSelectDropDwn('')">
+            <div class="dropdown-item">
+                No selection
+            </div>
+        </li>
+      <li *ngFor="let option of options" (click)="onSelectDropDwn(option.value)">
+        <div class="dropdown-item">
+            <ng-container *ngIf="leftIconTemplateRef && option.value!= ''" [ngTemplateOutlet]="leftIconTemplateRef"></ng-container> {{option.text}}
+        </div>
+      </li>
+    </ul>
+    <div type="text" class="form-control selected"  aria-label="Text div with segmented dropdown button">{{ getLabel(control.value) }}</div>
+  </div>
